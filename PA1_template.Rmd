@@ -26,7 +26,7 @@ The mean number of steps taken per day is `r format(meansteps, scientific=FALSE)
 
 ## What is the average daily activity pattern?
 ```{r}
-data_agg_interval <- aggregate(steps ~ interval, data, sum)
+data_agg_interval <- aggregate(steps ~ interval, data, mean)
 plotline <- plot(data_agg_interval, type='l')
 maxsteps_interval <- data_agg_interval[which(data_agg_interval$steps == max(data_agg_interval$steps)), 1]
 print(maxsteps_interval)
@@ -51,9 +51,9 @@ mediansteps_fill <- median(data_agg_steps_fill$steps)
 print(paste(meansteps_fill, mediansteps_fill))
 ```
 
-The mean number of steps taken per day from filled in data is `r format(meansteps_fill, scientific=FALSE)`. The median number of steps taken per day from filled in data is `r mediansteps_fill`. 
+The mean number of steps taken per day from filled in data is `r format(meansteps_fill, scientific=FALSE)`. The median number of steps taken per day from filled in data is `r format(mediansteps_fill, scientific=FALSE)`. 
 
-The mean number of steps increases almost 8 times from `r format(meansteps, scientific=FALSE)` to `r format(meansteps_fill, scientific=FALSE)`. The median number of steps increases around 7% from `r mediansteps` to `r mediansteps_fill`. The mean is significantly more affected than the median by inputting the missing data by this methodology.
+The mean remains the same from earlier but the median changes to match the mean with this method of filling missing values.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 ```{r}
@@ -62,7 +62,6 @@ data[['weekday']] <- ifelse(data$day == 'Saturday' | data$day == 'Sunday', 1, 0)
 data_avg_steps_weekday <- aggregate(steps ~ interval, data[data$weekday==0,], sum)
 data_avg_steps_weekend <- aggregate(steps ~ interval, data[data$weekday==1,], sum)
 par(mfrow=c(2,1))
-plot(data_avg_steps_weekday, type='l', main='Weekday', ylim=c(-500, 80000))
-plot(data_avg_steps_weekend, type='l', main='Weekend', ylim=c(-500, 80000))
-
+plot(data_avg_steps_weekday, type='l', main='Weekday', ylim=c(-500, 11500))
+plot(data_avg_steps_weekend, type='l', main='Weekend', ylim=c(-500, 11500))
 ```

@@ -61,7 +61,7 @@ The mean number of steps taken per day is 10766.19. The median number of steps t
 ## What is the average daily activity pattern?
 
 ```r
-data_agg_interval <- aggregate(steps ~ interval, data, sum)
+data_agg_interval <- aggregate(steps ~ interval, data, mean)
 plotline <- plot(data_agg_interval, type='l')
 ```
 
@@ -97,13 +97,13 @@ head(data)
 ```
 
 ```
-##   steps       date interval
-## 1    91 2012-10-01        0
-## 2    18 2012-10-01        5
-## 3     7 2012-10-01       10
-## 4     8 2012-10-01       15
-## 5     4 2012-10-01       20
-## 6   111 2012-10-01       25
+##       steps       date interval
+## 1 1.7169811 2012-10-01        0
+## 2 0.3396226 2012-10-01        5
+## 3 0.1320755 2012-10-01       10
+## 4 0.1509434 2012-10-01       15
+## 5 0.0754717 2012-10-01       20
+## 6 2.0943396 2012-10-01       25
 ```
 
 ```r
@@ -120,12 +120,12 @@ print(paste(meansteps_fill, mediansteps_fill))
 ```
 
 ```
-## [1] "84188.0655737705 11458"
+## [1] "10766.1886792453 10766.1886792453"
 ```
 
-The mean number of steps taken per day from filled in data is 84188.07. The median number of steps taken per day from filled in data is 11458. 
+The mean number of steps taken per day from filled in data is 10766.19. The median number of steps taken per day from filled in data is 10766.19. 
 
-The mean number of steps increases almost 8 times from 10766.19 to 84188.07. The median number of steps increases around 7% from 10765 to 11458. The mean is significantly more affected than the median by inputting the missing data by this methodology.
+The mean remains the same from earlier but the median changes to match the mean with this method of filling missing values.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
@@ -135,8 +135,8 @@ data[['weekday']] <- ifelse(data$day == 'Saturday' | data$day == 'Sunday', 1, 0)
 data_avg_steps_weekday <- aggregate(steps ~ interval, data[data$weekday==0,], sum)
 data_avg_steps_weekend <- aggregate(steps ~ interval, data[data$weekday==1,], sum)
 par(mfrow=c(2,1))
-plot(data_avg_steps_weekday, type='l', main='Weekday', ylim=c(-500, 80000))
-plot(data_avg_steps_weekend, type='l', main='Weekend', ylim=c(-500, 80000))
+plot(data_avg_steps_weekday, type='l', main='Weekday', ylim=c(-500, 11500))
+plot(data_avg_steps_weekend, type='l', main='Weekend', ylim=c(-500, 11500))
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
